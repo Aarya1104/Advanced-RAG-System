@@ -1,0 +1,13 @@
+fastapi
+uvicorn[standard]
+python-dotenv
+google-generativeai
+cohere
+qdrant-client
+pydantic-settings
+python-multipart
+pypdf
+python-docx
+# New libraries for advanced chunking
+langchain-text-splitters
+tiktoken

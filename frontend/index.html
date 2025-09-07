@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced RAG Project</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>Advanced RAG Project</h1>
+            <p>Upload a document, paste text, and ask questions with cited answers.</p>
+        </header>
+
+        <main>
+            <div id="error-message" class="error-box" style="display: none;"></div>
+
+            <section class="card upload-section">
+                <h2>1. Add Documents</h2>
+                <div class="upload-options">
+                    <div class="paste-area">
+                        <label for="paste-input">Paste Text</label>
+                        <textarea id="paste-input" rows="5" placeholder="Paste your text content here..."></textarea>
+                        <button id="paste-button">Process Pasted Text</button>
+                    </div>
+                    <div class="upload-area">
+                        <label for="file-input" class="file-label">
+                            Choose a File (.txt, .pdf, .docx)
+                        </label>
+                        <input type="file" id="file-input" accept=".txt,.pdf,.docx" required>
+                        <span id="file-name-display">No file selected</span>
+                        <button id="upload-button">Upload & Process</button>
+                    </div>
+                </div>
+            </section>
+
+            <section class="card query-section">
+                <h2>2. Ask a Question</h2>
+                <div class="doc-selector">
+                    <label for="doc-select">Search in:</label>
+                    <select id="doc-select">
+                        <option value="all">All Uploaded Documents</option>
+                    </select>
+                </div>
+                <form id="query-form">
+                    <input type="text" id="query-input" placeholder="e.g., What is the main topic?" required>
+                    <button type="submit">Ask</button>
+                </form>
+            </section>
+
+            <section class="card results-section">
+                <h2>Result</h2>
+                <div id="status-message">Your results will appear here.</div>
+                <div id="results-container">
+                    <div class="loader" id="loader" style="display: none;"></div>
+                    <div id="stats-container" class="stats-container" style="display: none;"></div>
+                    <p id="answer"></p>
+                    <div id="sources-container"></div>
+                </div>
+            </section>
+        </main>
+    </div>
+    <script src="/static/script.js"></script>
+</body>
+
+</html>
