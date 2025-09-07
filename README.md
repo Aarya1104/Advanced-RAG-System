@@ -70,8 +70,8 @@ To run this project locally, follow these steps:
 
 1.  **Clone the repository:**
     ```bash
-    git clone [https://github.com/Aarya1104/Advanced-RAG-System]
-    cd [Advanced-RAG-System]
+    git clone https://github.com/Aarya1104/Advanced-RAG-System
+    cd Advanced-RAG-System
     ```
 
 2.  **Install Python dependencies:**
