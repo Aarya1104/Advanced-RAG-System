@@ -1,6 +1,4 @@
-# Stage 1: Build the Python backend
 FROM python:3.11-slim AS python-base
-
 # Set environment variables
 ENV PYTHONUNBUFFERED=1
 ENV PYTHONDONTWRITEBYTECODE=1
@@ -17,9 +15,8 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY ./backend ./backend
 COPY ./frontend ./frontend
 
-# Expose the port the app runs on (Cloud Run ignores this, but it's good practice)
+# Expose the port for Google Cloud Run
 EXPOSE 8080
 
-# --- THIS IS THE MODIFIED LINE ---
-# Use the PORT environment variable provided by Cloud Run, defaulting to 8000 for local runs.
+# Default to PORT 8000 for loca
 CMD exec uvicorn backend.main:app --host 0.0.0.0 --port ${PORT:-8000}

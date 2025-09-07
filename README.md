@@ -1,10 +1,8 @@
-# Advanced-RAG-System
-A lightweight document-based question answering system. Upload documents, ask questions in natural language, and get accurate answers with source references. Built for simplicity and efficiency using modern retrieval and generation techniques.
 # Track B: AI Engineer Assessment ("Mini RAG")
 
 This repository contains the submission for the Intern - Software & AI Developer assessment from Predusk Technology Pvt. Ltd.
 
-**Candidate:** Aarya 
+**Candidate:** Aarya Abhijit Joshi
 
 ---
 
@@ -12,13 +10,13 @@ This repository contains the submission for the Intern - Software & AI Developer
 
 The fully deployed application is accessible here:
 
-**[Paste Your Live Google Cloud Run URL Here]**
+**https://mini-rag-service-728202155198.asia-south2.run.app/**
 
 ### My Resume
 
 You can find my resume at the following link:
 
-**[Link to Your Resume (e.g., Google Drive, Dropbox, or personal website)]**
+**https://drive.google.com/file/d/1hUDs4tekHkkc_DWHlulA8bsTB2xW_k2w/view?usp=sharing**
 
 ---
 
@@ -72,8 +70,8 @@ To run this project locally, follow these steps:
 
 1.  **Clone the repository:**
     ```bash
-    git clone [Your GitHub Repo URL]
-    cd [Your Repo Name]
+    git clone [https://github.com/Aarya1104/Advanced-RAG-System]
+    cd [Advanced-RAG-System]
     ```
 
 2.  **Install Python dependencies:**

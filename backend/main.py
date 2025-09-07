@@ -3,20 +3,16 @@ from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 from typing import List
-import time  # Import the time module
-
+import time
 from . import rag_logic
 from .config import settings
 from qdrant_client import QdrantClient
 
 app = FastAPI()
-
 qdrant_client = QdrantClient(
     url=settings.QDRANT_URL,
     api_key=settings.QDRANT_API_KEY,
 )
-
-# --- Pydantic Models ---
 
 
 class PasteRequest(BaseModel):
@@ -34,7 +30,7 @@ class QueryRequest(BaseModel):
     query: str
     selected_doc: str | None = None
 
-# NEW: Updated response model with all stats
+# Response model with all stats
 
 
 class QueryResponse(BaseModel):
@@ -45,7 +41,7 @@ class QueryResponse(BaseModel):
     completion_tokens: int
     cost: float
 
-# --- Endpoints ---
+# Endpoints
 
 
 @app.post("/api/upload")
@@ -99,11 +95,11 @@ async def get_documents():
 
 @app.post("/api/query", response_model=QueryResponse)
 async def process_query(request: QueryRequest):
-    start_time = time.time()  # Start timing
+    start_time = time.time()  # Start time Counting
     try:
         result = await rag_logic.answer_query(request.query, request.selected_doc)
 
-        end_time = time.time()  # End timing
+        end_time = time.time()  # End time Counting
         result['duration'] = round(end_time - start_time, 2)
 
         return result
@@ -113,7 +109,6 @@ async def process_query(request: QueryRequest):
             status_code=500, detail="An error occurred while processing your query.")
 
 
-# --- SERVE FRONTEND ---
 app.mount("/static", StaticFiles(directory="frontend"), name="static")
 
 

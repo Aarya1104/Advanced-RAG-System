@@ -6,12 +6,11 @@ import uuid
 import io
 import re
 
-# Library Imports
 from pypdf import PdfReader
 from docx import Document
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 
-# --- CLIENT INITIALIZATION (No changes) ---
+# Initialize clients
 genai.configure(api_key=settings.GOOGLE_API_KEY)
 co = cohere.Client(settings.COHERE_API_KEY)
 qdrant_client = QdrantClient(
@@ -19,7 +18,7 @@ qdrant_client = QdrantClient(
     api_key=settings.QDRANT_API_KEY,
 )
 
-# --- QDRANT SETUP (MODIFIED TO CREATE PAYLOAD INDEX) ---
+# Ensure Qdrant collection exists
 try:
     qdrant_client.get_collection(
         collection_name=settings.QDRANT_COLLECTION_NAME)
@@ -33,7 +32,6 @@ except Exception:
     )
     print("Collection created successfully.")
 
-    # *** FIX 1: Create the payload index for the 'source' field. ***
     print("Creating payload index for 'source' field...")
     qdrant_client.create_payload_index(
         collection_name=settings.QDRANT_COLLECTION_NAME,
@@ -43,7 +41,8 @@ except Exception:
     print("Payload index created successfully.")
 
 
-# --- HELPER FUNCTIONS & DOCUMENT PROCESSING (No changes) ---
+# --- Document Processing and Uploading ---
+
 def _extract_text_from_pdf(file_bytes: bytes) -> str:
     pdf_file = io.BytesIO(file_bytes)
     reader = PdfReader(pdf_file)
@@ -109,7 +108,7 @@ def process_and_upload_document(file_bytes: bytes, filename: str):
     )
     return f"Successfully processed '{filename}' and uploaded {len(chunks)} chunks to Qdrant."
 
-# --- answer_query function (MODIFIED PROMPT) ---
+# --- Query Handling and Answer Generation ---
 
 
 async def answer_query(query: str, selected_doc: str | None = None) -> dict:
@@ -153,7 +152,8 @@ async def answer_query(query: str, selected_doc: str | None = None) -> dict:
         context_for_llm += f"Source [{i+1}]: (From File: {doc['source']}, Chunk: {doc.get('chunk_num', 'N/A')})\n"
         context_for_llm += f"{doc['text']}\n\n"
 
-    # *** FIX 2: Added a few-shot example to the prompt for better citation results. ***
+    # Added Some Examples to Improve Citation Accuracy
+
     prompt = f"""
     You are a helpful assistant. Your task is to answer the user's query based ONLY on the provided sources.
     - Do not use any prior knowledge.

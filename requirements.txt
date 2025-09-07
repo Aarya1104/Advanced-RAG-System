@@ -8,6 +8,5 @@ pydantic-settings
 python-multipart
 pypdf
 python-docx
-# New libraries for advanced chunking
 langchain-text-splitters
 tiktoken
